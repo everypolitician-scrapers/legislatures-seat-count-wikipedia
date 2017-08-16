@@ -48,7 +48,7 @@ class LegislatureRow < Scraped::HTML
   end
 
   field :seats do
-    seat_field.text.tidy
+    seat_field.text.tidy[/^(\d+)/, 1]
   end
 
   private
@@ -95,7 +95,7 @@ LLC = 'https://en.wikipedia.org/wiki/List_of_legislatures_by_country'
 
 statements = data.map do |leg|
   data = {
-    SEAT_COUNT => '"%s"' % leg[:seats][/^(\d+)/, 1],
+    SEAT_COUNT => '"%s"' % leg[:seats],
     SOURCE => LLC,
   }
   binding.pry if data.values.any? &:nil?
