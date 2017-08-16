@@ -43,6 +43,10 @@ class LegislatureRow < Scraped::HTML
     td.first.text.tidy
   end
 
+  field :country_id do
+    td.first.css('a/@wikidata').map(&:text).first
+  end
+
   field :seats do
     seat_field.text.tidy
   end
