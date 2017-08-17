@@ -51,6 +51,10 @@ class LegislatureRow < Scraped::HTML
     seat_field.text.tidy[/^(\d+)/, 1]
   end
 
+  field :category do
+    noko.xpath('preceding::h3/span[@class="mw-headline"]').last.text
+  end
+
   private
 
   def td
