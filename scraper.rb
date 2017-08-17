@@ -92,15 +92,15 @@ ScraperWiki.sqliteexecute('DROP TABLE data') rescue nil
 ScraperWiki.save_sqlite(%i[id], data)
 
 __END__
-# ---------- QuickStatements -------
+
 SEAT_COUNT = 'P1342'
 SOURCE = 'S854'
 LLC = 'https://en.wikipedia.org/wiki/List_of_legislatures_by_country'
 
 statements = data.map do |leg|
   data = {
-    SEAT_COUNT => '"%s"' % leg[:seats],
-    SOURCE => LLC,
+    SEAT_COUNT => leg[:seats],
+    SOURCE => '"%s"' % LLC,
   }
   binding.pry if data.values.any? &:nil?
   [leg[:id], data.to_a].join("\t")
