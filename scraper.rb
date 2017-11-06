@@ -48,7 +48,7 @@ class LegislatureRow < Scraped::HTML
   end
 
   field :seats do
-    seat_field.text.tidy[/^(\d+)/, 1]
+    seat_field.xpath('./text()').text.tr(',', '').to_i
   end
 
   field :category do
