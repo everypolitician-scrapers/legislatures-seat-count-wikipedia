@@ -90,20 +90,3 @@ data.each { |mem| puts mem.reject { |_, v| v.to_s.empty? }.sort_by { |k, _| k }.
 
 ScraperWiki.sqliteexecute('DROP TABLE data') rescue nil
 ScraperWiki.save_sqlite(%i[id], data)
-
-__END__
-
-SEAT_COUNT = 'P1342'
-SOURCE = 'S854'
-LLC = 'https://en.wikipedia.org/wiki/List_of_legislatures_by_country'
-
-statements = data.map do |leg|
-  data = {
-    SEAT_COUNT => leg[:seats],
-    SOURCE => '"%s"' % LLC,
-  }
-  binding.pry if data.values.any? &:nil?
-  [leg[:id], data.to_a].join("\t")
-end
-
-puts statements
